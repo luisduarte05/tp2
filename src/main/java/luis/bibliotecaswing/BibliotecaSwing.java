@@ -259,7 +259,9 @@ public class BibliotecaSwing {
         System.out.println("\n Emprestimo apos devolucao: ");
         System.out.println(biblioteca.encontrarEmprestimoPorId(emprestimo.getId()));
         
-        
+        java.awt.EventQueue.invokeLater(() -> {
+            new mainWindow(biblioteca).setVisible(true);
+        });
         
         /*
         Livro livro = new Livro(1, "978-1234567890", "O Senhor dos Aneis", "J.R.R. Tolkien", true);
