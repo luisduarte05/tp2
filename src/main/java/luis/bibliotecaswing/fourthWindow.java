@@ -4,38 +4,19 @@
  */
 package luis.bibliotecaswing;
 
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author joaofontes
  */
 public class fourthWindow extends javax.swing.JFrame {
 
-    private Biblioteca biblioteca;
-    private String funcao;
-    
-    public fourthWindow(Biblioteca biblioteca) {
+    /**
+     * Creates new form secondWindow
+     */
+    public fourthWindow() {
         initComponents();
-        
-        this.biblioteca = biblioteca;
-        
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        jComboBox1.removeAllItems();
-        jComboBox1.addItem(null);
-        for (Membro membro : biblioteca.listarMembros()) {
-            jComboBox1.addItem(membro.toString());
-            model.addRow(new Object[]{
-                membro.getNumeroSocio(),
-                membro.getPrimeiroNome(),
-                membro.getApelido(),
-                membro.getEmail()
-            });
-        }
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,13 +66,13 @@ public class fourthWindow extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Nº de Sócio", "Primeiro Nome", "Apelido", "Email"
+                "Número", "Nome", "Contacto"
             }
         ));
         jScrollPane2.setViewportView(jTable1);
@@ -104,11 +85,6 @@ public class fourthWindow extends javax.swing.JFrame {
         });
 
         jButton3.setText("Editar Membro");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
         jButton4.setText("Remover Membro");
 
@@ -120,19 +96,20 @@ public class fourthWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton4)
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -158,18 +135,7 @@ public class fourthWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        fifthWindow fifth = new fifthWindow(biblioteca, "adicionar", 0);
-        fifth.setVisible(true);
-        
-        this.dispose();
-        //biblioteca.adicionarMembro(membro.getNumeroSocio(), membro.getPrimeiroNome(), membro.getApelido(), membro.getEmail());
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        fifthWindow fifth = new fifthWindow(biblioteca, "editar", jTable1.getSelectedRow());
-        fifth.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,12 +168,10 @@ public class fourthWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Biblioteca biblioteca = new Biblioteca();
-                new fourthWindow(biblioteca).setVisible(true);
+                new fourthWindow().setVisible(true);
             }
         });
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

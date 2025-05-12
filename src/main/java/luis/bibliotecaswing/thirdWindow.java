@@ -10,10 +10,21 @@ package luis.bibliotecaswing;
  */
 public class thirdWindow extends javax.swing.JFrame {
 
-    /**
-     * Creates new form thirdWindow
-     */
-    public thirdWindow() {
+    private Biblioteca biblioteca;
+    private String funcao;
+    private int row;
+    
+    public thirdWindow(Biblioteca biblioteca, String funcao, int row) {
+        this.biblioteca = biblioteca;
+        this.funcao = funcao;
+        this.row = row;
+        
+        Livro livro = biblioteca.encontrarLivroPorId(row);
+        
+        jTextField1.setText(livro.getIsbn());
+        jTextField2.setText(livro.getTitulo());
+        jTextField3.setText(livro.getAutor());
+        
         initComponents();
     }
 
@@ -44,15 +55,27 @@ public class thirdWindow extends javax.swing.JFrame {
 
         jLabel2.setText("ISBN");
 
-        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Título");
 
-        jTextField2.setText("jTextField1");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Autor");
 
-        jTextField3.setText("jTextField1");
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,11 +112,15 @@ public class thirdWindow extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setBackground(new java.awt.Color(153, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(153, 0, 51));
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Adicionar");
+        jButton2.setText("Confirmar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -137,7 +164,49 @@ public class thirdWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        
+        if (funcao == "adicionar"){
+            String isbn = jTextField1.getText();
+            String titulo = jTextField2.getText();
+            String autor = jTextField3.getText();
+            
+            biblioteca.adicionarLivro(isbn, titulo, autor);
+        } else {
+            String isbn = jTextField1.getText();
+            String titulo = jTextField2.getText();
+            String autor = jTextField3.getText();
+            
+            Livro livro = biblioteca.encontrarLivroPorId(row);
+            
+            livro.setAutor(autor);
+            livro.setIsbn(isbn);
+            livro.setTitulo(titulo);
+        }
+        secondWindow second = new secondWindow(biblioteca);
+        second.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        secondWindow second = new secondWindow(biblioteca);
+        second.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,7 +238,10 @@ public class thirdWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new thirdWindow().setVisible(true);
+                Biblioteca biblioteca = new Biblioteca();
+                String funcao = null;
+                int row = 0;
+                new thirdWindow(biblioteca, funcao, row).setVisible(true);
             }
         });
     }

@@ -5,6 +5,7 @@
 package luis.bibliotecaswing;
 
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,15 +19,20 @@ public class secondWindow extends javax.swing.JFrame {
         initComponents();
         
         this.biblioteca = biblioteca;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         
-        preencherComboBoxLivros();
-    }
-    
-    private void preencherComboBoxLivros(){
+        model.setRowCount(0);
+        
         jComboBox1.removeAllItems();
         jComboBox1.addItem(null);
         for (Livro livro : biblioteca.listarLivros()) {
             jComboBox1.addItem(livro);
+            model.addRow(new Object[]{
+                livro.getTitulo(),
+                livro.getIsbn(),
+                livro.getAutor(),
+                livro.isDisponivel()
+            });
         }
     }
 
@@ -102,6 +108,11 @@ public class secondWindow extends javax.swing.JFrame {
         });
 
         jButton3.setText("Editar Livro");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Remover Livro");
 
@@ -150,11 +161,23 @@ public class secondWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        thirdWindow third = new thirdWindow(biblioteca, "adicionar", 0);
+        third.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        thirdWindow third = new thirdWindow(biblioteca, "editar", jTable1.getSelectedRow());
+        third.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -10,14 +10,10 @@ package luis.bibliotecaswing;
  */
 public class fifthWindow extends javax.swing.JFrame {
 
-    private Biblioteca biblioteca;
-    private String funcao;
-    private int row;
-    
-    public fifthWindow(Biblioteca biblioteca, String funcao, int row) {
-        this.biblioteca = biblioteca;
-        this.funcao = funcao;
-        this.row = row;
+    /**
+     * Creates new form thirdWindow
+     */
+    public fifthWindow() {
         initComponents();
     }
 
@@ -50,35 +46,19 @@ public class fifthWindow extends javax.swing.JFrame {
 
         jLabel2.setText("Número de Sócio");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        jTextField1.setText("jTextField1");
 
         jLabel3.setText("Primeiro Nome");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
+        jTextField2.setText("jTextField1");
 
         jLabel4.setText("Apelido");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
+        jTextField3.setText("jTextField1");
 
         jLabel5.setText("Email");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
+        jTextField4.setText("jTextField1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,13 +110,8 @@ public class fifthWindow extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(153, 0, 0));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
-        jButton2.setText("Confirmar");
+        jButton2.setText("Adicionar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -180,57 +155,7 @@ public class fifthWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(funcao == "adicionar"){
-            String numeroSocio = jTextField1.getText();
-            String primeiroNome = jTextField2.getText();
-            String apelido = jTextField3.getText();
-            String email = jTextField3.getText();        
-            biblioteca.adicionarMembro(numeroSocio, primeiroNome, apelido, email);
-        } else{
-            String numeroSocio = jTextField1.getText();
-            String primeiroNome = jTextField2.getText();
-            String apelido = jTextField3.getText();
-            String email = jTextField3.getText();
-            
-            Membro membro = biblioteca.encontrarMembroPorId(row);
-            
-            membro.setNumeroSocio(numeroSocio);
-            membro.setPrimeiroNome(primeiroNome);
-            membro.setApelido(apelido);
-            membro.setEmail(email);
-        }
-        
-        
-        fourthWindow fourth = new fourthWindow(biblioteca);
-        fourth.setVisible(true);
-        
-        this.dispose();
-        
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        fourthWindow fourth = new fourthWindow(biblioteca);
-        fourth.setVisible(true);
-        
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,10 +190,7 @@ public class fifthWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Biblioteca biblioteca = new Biblioteca();
-                String funcao = null;
-                int row = 0;
-                new fifthWindow(biblioteca, funcao, row).setVisible(true);
+                new fifthWindow().setVisible(true);
             }
         });
     }

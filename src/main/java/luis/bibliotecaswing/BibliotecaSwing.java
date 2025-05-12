@@ -32,12 +32,27 @@ class Livro {
     public String getIsbn(){
         return isbn;
     }
+    
+    public void setIsbn(String isbn){
+        this.isbn = isbn;
+    }
+    
     public String getTitulo(){
         return titulo;
     }
+    
+    public void setTitulo(String Titulo){
+        this.titulo = titulo;
+    }
+    
     public String getAutor(){
         return autor;
     }
+    
+    public void setAutor(String autor){
+        this.autor = autor;
+    }
+    
     public boolean isDisponivel(){
         return disponivel;
     }
@@ -70,14 +85,33 @@ class Membro {
     public String getNumeroSocio(){
         return numeroSocio;
     }
+    
+    public void setNumeroSocio(String numeroSocio){
+        this.numeroSocio = numeroSocio;
+    }
+    
     public String getPrimeiroNome(){
         return primeiroNome;
     }
+    
+    private void setPrimeiroNome(String primeiroNome){
+        this.primeiroNome = primeiroNome;
+    }
+    
     public String getApelido(){
         return apelido;
     }
+    
+    public void setApelido(String apelido){
+        this.apelido = apelido;
+    }
+    
     public String getEmail(){
         return email;
+    }
+    
+    public void setEmail(String email){
+        this.email = email;
     }
     
     public String getNomeCompleto(){
@@ -138,7 +172,7 @@ class Emprestimo{
     
     @Override
     public String toString(){
-        return "Emprestimo Id: " + id + " --> Estado: " + getEstado();
+        return "Id: " + id + " --> Estado: " + getEstado();
     }
     
 }
@@ -152,6 +186,9 @@ class Biblioteca {
     private int proximoIdLivro = 1;
     private int proximoIdMembro = 1;
     private int proximoIdEmprestimo = 1;
+    private int nLivros = 0;
+    private int nMembros = 0;
+    private int nEmprestimos = 0;
     
     public Biblioteca (){
         livros = new ArrayList<>();
@@ -163,12 +200,14 @@ class Biblioteca {
     public Livro adicionarLivro(String isbn, String titulo, String autor){
         Livro livro = new Livro(proximoIdLivro++, isbn, titulo, autor, true);
         livros.add(livro);
+        nLivros++;
         return livro;
     }
     
     public Membro adicionarMembro(String numeroSocio, String primeiroNome, String apelido, String email) {
         Membro membro = new Membro(proximoIdMembro++, numeroSocio, primeiroNome, apelido, email);
         membros.add(membro);
+        nMembros++;
         return membro;
     }
     
@@ -181,6 +220,7 @@ class Biblioteca {
         
         Emprestimo emprestimo = new Emprestimo(proximoIdEmprestimo++, idLivro, idMembro, dataEmprestimo, dataDevolucaoPrevista);
         emprestimos.add(emprestimo);
+        nEmprestimos++;
         livro.setDisponivel(false);
         return emprestimo;
     }
@@ -220,6 +260,18 @@ class Biblioteca {
         return emprestimos;
     }
     
+    public int getNumLivros() {
+        return nLivros;
+    }
+    
+    public int getNumMembros() {
+        return nMembros;
+    }
+    
+    public int getNumEmprestmos() {
+        return nEmprestimos;
+    }
+    
 }
 
 
@@ -232,6 +284,7 @@ public class BibliotecaSwing {
         Biblioteca biblioteca = new Biblioteca();
         
         Livro livro = biblioteca.adicionarLivro("978-1234567890", "1984", "George Orwell");
+        Livro livro1 = biblioteca.adicionarLivro("978-3213213123", "1985", "George Orwell");
         Membro membro = biblioteca.adicionarMembro("M001", "Maria", "Ferreira", "maria@example.com");
         
         //criar emprestimo
@@ -242,6 +295,7 @@ public class BibliotecaSwing {
         Date devolucaoPrevista = cal.getTime();
         
         Emprestimo emprestimo = biblioteca.registarEmprestimo(livro.getId(), membro.getId(), hoje, devolucaoPrevista);
+        Emprestimo emprestimo1 = biblioteca.registarEmprestimo(livro1.getId(), membro.getId(), hoje, devolucaoPrevista);
         
         //listar tudo
         
