@@ -29,7 +29,7 @@ public class secondWindow extends javax.swing.JFrame {
         jComboBox1.removeAllItems();
         jComboBox1.addItem(null);
         for (Livro livro : biblioteca.listarLivros()) {
-            jComboBox1.addItem(livro);
+            jComboBox1.addItem(livro.getTitulo());
             model.addRow(new Object[]{
                 livro.getId(),
                 livro.getTitulo(),
@@ -38,6 +38,20 @@ public class secondWindow extends javax.swing.JFrame {
                 livro.isDisponivel()
             });
         }
+    }
+
+    private void procurarLivro(String titulo) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        model.setRowCount(0);
+        Livro livro = biblioteca.encontrarLivroPorTitulo(titulo);
+        model.addRow(new Object[]{
+            livro.getId(),
+            livro.getTitulo(),
+            livro.getIsbn(),
+            livro.getAutor(),
+            livro.isDisponivel()
+        });
     }
 
     /**
@@ -90,6 +104,11 @@ public class secondWindow extends javax.swing.JFrame {
         });
 
         jButton1.setText("Procurar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -101,7 +120,15 @@ public class secondWindow extends javax.swing.JFrame {
             new String [] {
                 "Id", "Título", "ISBN", "Autor", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         jButton2.setText("Adicionar Livro");
@@ -194,6 +221,15 @@ public class secondWindow extends javax.swing.JFrame {
         preencherPagina();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (jComboBox1.getSelectedItem() == null){
+            preencherPagina();
+        } else {
+            procurarLivro(jComboBox1.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -235,7 +271,7 @@ public class secondWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<Livro> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

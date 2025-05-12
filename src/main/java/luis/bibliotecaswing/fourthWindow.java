@@ -20,12 +20,16 @@ public class fourthWindow extends javax.swing.JFrame {
         
         this.biblioteca = biblioteca;
         
+        preencherPagina();
+    }
+    
+    private void preencherPagina(){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         jComboBox1.removeAllItems();
         jComboBox1.addItem(null);
         for (Membro membro : biblioteca.listarMembros()) {
-            jComboBox1.addItem(membro.toString());
+            jComboBox1.addItem(membro.getNomeCompleto());
             model.addRow(new Object[]{
                 membro.getNumeroSocio(),
                 membro.getPrimeiroNome(),
@@ -34,7 +38,19 @@ public class fourthWindow extends javax.swing.JFrame {
             });
         }
     }
-    
+
+    public void procurarMembro(String nomeCompleto){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        model.setRowCount(0);
+        Membro membro = biblioteca.encontrarMembroPorNomeCompleto(nomeCompleto);
+        model.addRow(new Object[]{
+            membro.getNumeroSocio(),
+            membro.getPrimeiroNome(),
+            membro.getApelido(),
+            membro.getEmail()
+        });        
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,9 +95,12 @@ public class fourthWindow extends javax.swing.JFrame {
 
         jTextField1.setText("Filtro");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jButton1.setText("Procurar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,7 +112,15 @@ public class fourthWindow extends javax.swing.JFrame {
             new String [] {
                 "Nº de Sócio", "Primeiro Nome", "Apelido", "Email"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         jButton2.setText("Adicionar Membro");
@@ -163,7 +190,7 @@ public class fourthWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        fifthWindow fifth = new fifthWindow(biblioteca, "adicionar", 0);
+        fifthWindow fifth = new fifthWindow(biblioteca, "adicionar", null);
         fifth.setVisible(true);
         
         this.dispose();
@@ -172,14 +199,26 @@ public class fourthWindow extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        fifthWindow fifth = new fifthWindow(biblioteca, "editar", (int)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+        fifthWindow fifth = new fifthWindow(biblioteca, "editar", (jTable1.getValueAt(jTable1.getSelectedRow(), 0)).toString());
         fifth.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        biblioteca.removerMembro(jTable1.getSelectedRow());        
+        biblioteca.removerMembro(jTable1.getSelectedRow());
+        preencherPagina();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (jComboBox1.getSelectedItem() == null){
+            preencherPagina();
+        } else {
+            procurarMembro(jComboBox1.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -12,20 +12,21 @@ public class fifthWindow extends javax.swing.JFrame {
 
     private Biblioteca biblioteca;
     private String funcao;
-    private int row;
+    private String row;
     
-    public fifthWindow(Biblioteca biblioteca, String funcao, int row) {
+    public fifthWindow(Biblioteca biblioteca, String funcao, String row) {
         this.biblioteca = biblioteca;
         this.funcao = funcao;
         this.row = row;
         initComponents();
         
         if(funcao == "editar"){
-            Membro membro = biblioteca.encontrarMembroPorId(row);
+            Membro membro = biblioteca.encontrarMembroPorSocio(row);
+            
             jTextField1.setText(membro.getNumeroSocio());
             jTextField2.setText(membro.getPrimeiroNome());
             jTextField3.setText(membro.getApelido());
-            jTextField3.setText(membro.getEmail());
+            jTextField4.setText(membro.getEmail());
         }
     }
 
@@ -201,7 +202,7 @@ public class fifthWindow extends javax.swing.JFrame {
             String apelido = jTextField3.getText();
             String email = jTextField3.getText();                      
             
-            Membro membro = biblioteca.encontrarMembroPorId(row);
+            Membro membro = biblioteca.encontrarMembroPorSocio(row);
             
             membro.setNumeroSocio(numeroSocio);
             membro.setPrimeiroNome(primeiroNome);
@@ -275,7 +276,7 @@ public class fifthWindow extends javax.swing.JFrame {
             public void run() {
                 Biblioteca biblioteca = new Biblioteca();
                 String funcao = null;
-                int row = 0;
+                String row = null;
                 new fifthWindow(biblioteca, funcao, row).setVisible(true);
             }
         });

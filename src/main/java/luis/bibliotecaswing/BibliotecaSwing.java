@@ -238,9 +238,21 @@ class Biblioteca {
     public Livro encontrarLivroPorId(int id) {
         return livros.stream().filter(l -> l.getId() == id).findFirst().orElse(null);
     }
+
+    public Livro encontrarLivroPorTitulo(String titulo) {
+        return livros.stream().filter(l -> l.getTitulo().equals(titulo)).findFirst().orElse(null);
+    }
+
+    public Membro encontrarMembroPorNomeCompleto(String nomeCompleto) {
+        return membros.stream().filter(m -> m.getNomeCompleto().equals(nomeCompleto)).findFirst().orElse(null);
+    }
     
     public Membro encontrarMembroPorId(int id) {
         return membros.stream().filter(m -> m.getId() == id).findFirst().orElse(null);
+    }
+
+    public Membro encontrarMembroPorSocio(String numeroSocio) {
+        return membros.stream().filter(m -> m.getNumeroSocio() == numeroSocio).findFirst().orElse(null);
     }
 
     public Emprestimo encontrarEmprestimoPorId(int id) {
@@ -276,6 +288,9 @@ class Biblioteca {
         this.livros.remove(row);
     }
     
+    public void removerMembro(int row){
+        this.membros.remove(row);
+    }
 }
 
 
@@ -290,6 +305,7 @@ public class BibliotecaSwing {
         Livro livro = biblioteca.adicionarLivro("978-1234567890", "1984", "George Orwell");
         Livro livro1 = biblioteca.adicionarLivro("978-3213213123", "1985", "George Orwell");
         Membro membro = biblioteca.adicionarMembro("M001", "Maria", "Ferreira", "maria@example.com");
+        Membro membro1 = biblioteca.adicionarMembro("M002", "Joao", "Alberto", "jotap@example.com");
         
         //criar emprestimo
         Date hoje = new Date();
