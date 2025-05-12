@@ -76,7 +76,12 @@ public class mainWindow extends javax.swing.JFrame {
 
         jMenu1.setText("Membros");
 
-        jMenuItem4.setText("jMenuItem4");
+        jMenuItem4.setText("Gestão de Membros");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
@@ -140,6 +145,14 @@ public class mainWindow extends javax.swing.JFrame {
     // Close current window
     this.dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        fourthWindow fourth = new fourthWindow();
+        fourth.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
