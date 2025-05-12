@@ -19,15 +19,19 @@ public class secondWindow extends javax.swing.JFrame {
         initComponents();
         
         this.biblioteca = biblioteca;
+        preencherPagina();
+    }
+    
+    private void preencherPagina(){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         
         model.setRowCount(0);
-        
         jComboBox1.removeAllItems();
         jComboBox1.addItem(null);
         for (Livro livro : biblioteca.listarLivros()) {
             jComboBox1.addItem(livro);
             model.addRow(new Object[]{
+                livro.getId(),
                 livro.getTitulo(),
                 livro.getIsbn(),
                 livro.getAutor(),
@@ -89,13 +93,13 @@ public class secondWindow extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Título", "ISBN", "Autor", "Estado"
+                "Id", "Título", "ISBN", "Autor", "Estado"
             }
         ));
         jScrollPane2.setViewportView(jTable1);
@@ -115,6 +119,11 @@ public class secondWindow extends javax.swing.JFrame {
         });
 
         jButton4.setText("Remover Livro");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,11 +182,17 @@ public class secondWindow extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        thirdWindow third = new thirdWindow(biblioteca, "editar", jTable1.getSelectedRow());
+        thirdWindow third = new thirdWindow(biblioteca, "editar", (int) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
         third.setVisible(true);
         
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        biblioteca.removerLivro(jTable1.getSelectedRow());
+        preencherPagina();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

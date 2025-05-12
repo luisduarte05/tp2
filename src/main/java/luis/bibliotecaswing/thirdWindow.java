@@ -19,13 +19,15 @@ public class thirdWindow extends javax.swing.JFrame {
         this.funcao = funcao;
         this.row = row;
         
-        Livro livro = biblioteca.encontrarLivroPorId(row);
-        
-        jTextField1.setText(livro.getIsbn());
-        jTextField2.setText(livro.getTitulo());
-        jTextField3.setText(livro.getAutor());
-        
         initComponents();
+        
+        if (funcao == "editar"){
+            Livro livro = biblioteca.encontrarLivroPorId(row);
+            
+            jTextField1.setText(livro.getIsbn());
+            jTextField2.setText(livro.getTitulo());
+            jTextField3.setText(livro.getAutor());
+        }
     }
 
     /**

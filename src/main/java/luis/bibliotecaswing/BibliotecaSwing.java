@@ -41,7 +41,7 @@ class Livro {
         return titulo;
     }
     
-    public void setTitulo(String Titulo){
+    public void setTitulo(String titulo){
         this.titulo = titulo;
     }
     
@@ -94,7 +94,7 @@ class Membro {
         return primeiroNome;
     }
     
-    private void setPrimeiroNome(String primeiroNome){
+    public void setPrimeiroNome(String primeiroNome){
         this.primeiroNome = primeiroNome;
     }
     
@@ -270,6 +270,10 @@ class Biblioteca {
     
     public int getNumEmprestmos() {
         return nEmprestimos;
+    }
+    
+    public void removerLivro(int row){
+        this.livros.remove(row);
     }
     
 }
